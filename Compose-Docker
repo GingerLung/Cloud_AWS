@@ -1,0 +1,19 @@
+#!/bin/bash
+
+yum update -y
+
+#以下為安裝及配置Docker所需指令
+yum install -y docker
+systemctl start docker
+systemctl enable docker
+usermod -a -G docker ec2-user
+
+#以下為安裝及配置Docker-compose所需指令
+mkdir -p /home/ec2-user/.docker/cli-plugins
+curl -SL https://github.com/docker/compose/releases/download/v2.26.1/docker-compose-linux-x86_64 -o /home/ec2-user/.docker/cli-plugins/docker-compose
+chmod +x /home/ec2-user/.docker/cli-plugins/docker-compose
+chown ec2-user:ec2-user /home/ec2-user/.docker/
+
+#以下為安裝Git所需指令
+yum install -y git
+
